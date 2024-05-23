@@ -1,24 +1,28 @@
 import 'package:jewellery_app/core/json/data.dart';
+import 'package:jewellery_app/core/model/jewellery_model/item.dart';
 
 class BarcodeService {
-  Map _jsonData = json_data;
+  final Map _jsonData = json_data;
 
-  List<dynamic> getBarcodes(String barcode) {
-    // Convert the input barcode to lowercase
+  List<Item> getBarcodes(String barcode) {
     final barcodeLowerCase = barcode.toLowerCase();
-    // Filter items in the JSON data where the lowercase barcode contains the input barcode
-    return _jsonData['Items'].where((item) => item['Barcode'].toString().toLowerCase().contains(barcodeLowerCase)).toList();
+    final List<Item> items = (_jsonData['Items'] as List<dynamic>)
+        .map((itemJson) => Item.fromJson(itemJson))
+        .toList();
+    return items
+        .where((item) =>
+            (item.barcode?.toLowerCase().contains(barcodeLowerCase)) ?? false)
+        .toList();
   }
 }
 
-
 class BarcodeDetailsService {
-  Map<String, dynamic> _jsonData = json_data;
-
-  Map<String, dynamic>? getBarcodeDetails(String barcode) {
-    // Find the item in json_data corresponding to the provided barcode
-    for (var item in _jsonData['Items']) {
-      if (item['Barcode'] == barcode) {
+  final Map _jsonData = json_data;
+  Item? getBarcodeDetails(String barcode) {
+    final List<dynamic> items = _jsonData['Items'];
+    for (var itemJson in items) {
+      final Item item = Item.fromJson(itemJson);
+      if (item.barcode == barcode) {
         return item;
       }
     }

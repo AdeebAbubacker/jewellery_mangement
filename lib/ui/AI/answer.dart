@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jewellery_app/core/service/jewellery_service.dart';
-import 'package:jewellery_app/core/view_model/search_barcode/search_barcode_bloc.dart';
+import 'package:jewellery_app/core/view_model/barcode/barcode_bloc.dart';
 
 
 class HomeScreen extends StatelessWidget {
@@ -24,8 +24,8 @@ class HomeScreen extends StatelessWidget {
               border: OutlineInputBorder(),
             ),
             onSubmitted: (query) {
-              BlocProvider.of<SearchBarcodeBloc>(context)
-                  .add(SearchBarcodeEvent.fetchBarcodes(query));
+              BlocProvider.of<BarcodeBloc>(context)
+                  .add(BarcodeEvent.fetchBarcodes(query));
             },
           ),
         ),
@@ -33,13 +33,13 @@ class HomeScreen extends StatelessWidget {
           icon: const Icon(Icons.cancel),
           onPressed: () async {
             context
-                .read<SearchBarcodeBloc>()
-                .add(const SearchBarcodeEvent.cancelFetch());
+                .read<BarcodeBloc>()
+                .add(const BarcodeEvent.cancelFetch());
           },
         ),
         Expanded(
           child: 
-          BlocBuilder<SearchBarcodeBloc, SearchBarcodeState>(
+          BlocBuilder<BarcodeBloc, BarcodeState>(
             builder: (context, state) {
               if (state is Loading) {
                 return const Center(child: CircularProgressIndicator());
@@ -47,13 +47,13 @@ class HomeScreen extends StatelessWidget {
                 return ListView.builder(
                   itemCount: state.barcodes.length,
                   itemBuilder: (context, index) {
-                    final barcode = state.barcodes[index]['Barcode'].toString();
+                    final barcode = state.barcodes[0].barcode.toString();
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: InkWell(
                         onTap: () {
-                          BlocProvider.of<SearchBarcodeBloc>(context).add(
-                              SearchBarcodeEvent.fetchBarcodeDetails(barcode));
+                          BlocProvider.of<BarcodeBloc>(context).add(
+                              BarcodeEvent.fetchBarcodeDetails(barcode));
                         },
                         child: ListTile(
                           title: Text(barcode),

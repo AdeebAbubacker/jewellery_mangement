@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:jewellery_app/core/view_model/barcode/barcode_bloc.dart';
+import 'package:jewellery_app/ui/screens/tablet/widgets/content_pills.dart';
+import 'package:jewellery_app/ui/screens/tablet/widgets/initial_data.dart';
 import 'package:jewellery_app/ui/widgets/appbar.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jewellery_app/core/constants/common.dart';
-import 'package:jewellery_app/core/view_model/search_barcode/search_barcode_bloc.dart';
 import 'package:jewellery_app/ui/widgets/appbar.dart';
 import 'package:jewellery_app/ui/widgets/table.dart';
 
@@ -14,9 +16,9 @@ class TabletScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-       double screenheight = screenHeight(context);
+    double screenheight = screenHeight(context);
     double screenwidth = screenWidth(context);
-      double width960 = screenwidth * 960 / figmaDeviceWidth;
+    double width960 = screenwidth * 960 / figmaDeviceWidth;
     return Scaffold(
       appBar: const HomeAppBar(), // Use const for performance optimization
       extendBodyBehindAppBar: true, // extends body behind app bar
@@ -63,8 +65,8 @@ class TabletScreen extends StatelessWidget {
               //               border: OutlineInputBorder(),
               //             ),
               //             onSubmitted: (query) {
-              //               BlocProvider.of<SearchBarcodeBloc>(context)
-              //                   .add(SearchBarcodeEvent.fetchBarcodes(query));
+              //               BlocProvider.of<BarcodeBloc>(context)
+              //                   .add(BarcodeEvent.fetchBarcodes(query));
               //             },
               //           ),
               //         ),
@@ -73,8 +75,8 @@ class TabletScreen extends StatelessWidget {
               //         icon: const Icon(Icons.cancel),
               //         onPressed: () async {
               //           context
-              //               .read<SearchBarcodeBloc>()
-              //               .add(const SearchBarcodeEvent.cancelFetch());
+              //               .read<BarcodeBloc>()
+              //               .add(const BarcodeEvent.cancelFetch());
               //         },
               //       ),
               //     ],
@@ -97,8 +99,8 @@ class TabletScreen extends StatelessWidget {
                             border: OutlineInputBorder(),
                           ),
                           onSubmitted: (query) {
-                            BlocProvider.of<SearchBarcodeBloc>(context)
-                                .add(SearchBarcodeEvent.fetchBarcodes(query));
+                            BlocProvider.of<BarcodeBloc>(context)
+                                .add(BarcodeEvent.fetchBarcodes(query));
                           },
                         ),
                       ),
@@ -107,15 +109,15 @@ class TabletScreen extends StatelessWidget {
                       icon: const Icon(Icons.cancel),
                       onPressed: () async {
                         context
-                            .read<SearchBarcodeBloc>()
-                            .add(const SearchBarcodeEvent.cancelFetch());
+                            .read<BarcodeBloc>()
+                            .add(const BarcodeEvent.cancelFetch());
                       },
                     ),
                   ],
                 ),
               ),
 
-              BlocBuilder<SearchBarcodeBloc, SearchBarcodeState>(
+              BlocBuilder<BarcodeBloc, BarcodeState>(
                 builder: (context, state) {
                   if (state is Loading) {
                     return const Center(child: CircularProgressIndicator());
@@ -131,14 +133,14 @@ class TabletScreen extends StatelessWidget {
                           itemCount: state.barcodes.length,
                           itemBuilder: (context, index) {
                             final barcode =
-                                state.barcodes[index]['Barcode'].toString();
+                                state.barcodes[index].barcode.toString();
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: InkWell(
                                 onTap: () {
-                                  BlocProvider.of<SearchBarcodeBloc>(context)
-                                      .add(SearchBarcodeEvent
-                                          .fetchBarcodeDetails(barcode));
+                                  BlocProvider.of<BarcodeBloc>(context).add(
+                                      BarcodeEvent.fetchBarcodeDetails(
+                                          barcode));
                                 },
                                 child: ListTile(
                                   title: Text(
@@ -169,41 +171,42 @@ class TabletScreen extends StatelessWidget {
                                 direction: Axis.horizontal,
                                 alignment: WrapAlignment.start,
                                 children: [
-                                  _buildItem(
-                                      "Barcode No.${state.details["Barcode"]}"),
-                                  _buildItem(
-                                      "Location ${state.details["Location"]}"),
-                                  _buildItem(
-                                      "Branch ${state.details["Branch"]}"),
-                                  _buildItem(
-                                      "Status ${state.details["Status"]}"),
-                                  _buildItem(
-                                      "Counter ${state.details["Counter"]}"),
-                                  _buildItem(
-                                      "Source ${state.details["Source"]}"),
-                                  _buildItem(
-                                      "Category ${state.details["Category"]}"),
-                                  _buildItem(
-                                      "Collection ${state.details["Collection"]}"),
-                                  _buildItem(
-                                      "Description ${state.details["Description"]}"),
-                                  _buildItem(
-                                      "Metal Grp ${state.details["Metal_Grp"]}"),
-                                  _buildItem(
-                                      "STK Section ${state.details["STK_Section"]}"),
-                                  _buildItem(
-                                      "Mfgd By ${state.details["Mfgd_By"]}"),
-                                  _buildItem("Notes ${state.details["Notes"]}"),
-                                  _buildItem(
-                                      "In STK Since ${state.details["In_STK_Since"]}"),
-                                  _buildItem(
-                                      "Cert No.${state.details["Cert_No"]}"),
-                                  _buildItem(
-                                      "HUID No.${state.details["HUID_No"]}"),
-                                  _buildItem(
-                                      "Order No.${state.details["Order_No"]}"),
-                                  _buildItem(
-                                      "Cus Name ${state.details["Cus_Name"]}"),
+                                  ContentPillsTab(
+                                      "Barcode No. ${state.details.barcode}"),
+                                  ContentPillsTab(
+                                      "Location ${state.details.location}"),
+                                  ContentPillsTab(
+                                      "Branch ${state.details.branch}"),
+                                  ContentPillsTab(
+                                      "Status ${state.details.status}"),
+                                  ContentPillsTab(
+                                      "Counter ${state.details.counter}"),
+                                  ContentPillsTab(
+                                      "Source ${state.details.source}"),
+                                  ContentPillsTab(
+                                      "Category ${state.details.category}"),
+                                  ContentPillsTab(
+                                      "Collection ${state.details.collection}"),
+                                  ContentPillsTab(
+                                      "Description ${state.details.description}"),
+                                  ContentPillsTab(
+                                      "Metal Grp ${state.details.metalGrp}"),
+                                  ContentPillsTab(
+                                      "STK Section ${state.details.stkSection}"),
+                                  ContentPillsTab(
+                                      "Mfgd By ${state.details.mfgdBy}"),
+                                  ContentPillsTab(
+                                      "Notes ${state.details.notes}"),
+                                  ContentPillsTab(
+                                      "In STK Since ${state.details.inStkSince}"),
+                                  ContentPillsTab(
+                                      "Cert No. ${state.details.certNo}"),
+                                  ContentPillsTab(
+                                      "HUID No. ${state.details.huidNo}"),
+                                  ContentPillsTab(
+                                      "Order No. ${state.details.orderNo}"),
+                                  ContentPillsTab(
+                                      "Cus Name ${state.details.cusName}"),
                                 ],
                               ),
                             ),
@@ -233,7 +236,7 @@ class TabletScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(
                                     6), // Ensures the image respects the border radius
                                 child: Image.network(
-                                  state.details["image_link"] ?? '',
+                                  state.details.imageLink ?? '',
                                   fit: BoxFit
                                       .cover, // or BoxFit.contain depending on your requirement
                                   errorBuilder: (context, error, stackTrace) {
@@ -254,49 +257,59 @@ class TabletScreen extends StatelessWidget {
                           direction: Axis.horizontal,
                           alignment: WrapAlignment.start,
                           children: [
-                            _buildItem("Size ${state.details["Size"]}"),
-                            _buildItem("Quality ${state.details["Quality"]}"),
-                            _buildItem("KT ${state.details["KT"]}"),
-                            _buildItem("Pcs ${state.details["Pcs"]}"),
-                            _buildItem("Gross Wt ${state.details["Gross_Wt"]}"),
-                            _buildItem("Net Wt ${state.details["Net_Wt"]}"),
-                            _buildItem("Dia Pcs ${state.details["Dia_Pcs"]}"),
-                            _buildItem("Dia Wt ${state.details["Dia_Wt"]}"),
-                            _buildItem("Cls Pcs ${state.details["Cls_Pcs"]}"),
-                            _buildItem("Cls Wt ${state.details["Cls_Wt"]}"),
-                            _buildItem("Chain Wt ${state.details["Chain_Wt"]}"),
-                            _buildItem("M Rate ${state.details["M_Rate"]}"),
-                            _buildItem("M Value ${state.details["L_Rate"]}"),
-                            _buildItem("L Rate ${state.details["L_Rate"]}"),
-                            _buildItem(
-                                "L Charges ${state.details["L_Charges"]}"),
-                            _buildItem(
-                                "R Charges ${state.details["R_Charges"]}"),
-                            _buildItem(
-                                "O Charges ${state.details["O_Charges"]}"),
-                            _buildItem("MRP ${state.details["MRP"]}"),
+                            ContentPillsTab("Size ${state.details.size}"),
+                            ContentPillsTab("Quality ${state.details.quality}"),
+                            ContentPillsTab("KT ${state.details.kt}"),
+                            ContentPillsTab("Pcs ${state.details.pcs}"),
+                            ContentPillsTab(
+                                "Gross Wt ${state.details.grossWt}"),
+                            ContentPillsTab("Net Wt ${state.details.netWt}"),
+                            ContentPillsTab("Dia Pcs ${state.details.diaPcs}"),
+                            ContentPillsTab("Dia Wt ${state.details.diaWt}"),
+                            ContentPillsTab("Cls Pcs ${state.details.clsPcs}"),
+                            ContentPillsTab("Cls Wt ${state.details.clsWt}"),
+                            ContentPillsTab(
+                                "Chain Wt ${state.details.chainWt}"),
+                            ContentPillsTab("M Rate ${state.details.mRate}"),
+                            ContentPillsTab("M Value ${state.details.mValue}"),
+                            ContentPillsTab("L Rate ${state.details.lRate}"),
+                            ContentPillsTab(
+                                "L Charges ${state.details.lCharges}"),
+                            ContentPillsTab(
+                                "R Charges ${state.details.rCharges}"),
+                            ContentPillsTab(
+                                "O Charges ${state.details.oCharges}"),
+                            ContentPillsTab("MRP ${state.details.mrp}"),
                           ],
                         ),
                         const SizedBox(
                             height: 20), // Add spacing before the table
                         MyDataTable(
-                            Lot_Description:
-                                "${state.details["Lot_Description"]}",
-                            Group: "${state.details["Group"]}",
-                            Units: "${state.details["Units"]}",
-                            Pcs: "${state.details["Pcs"]}",
-                            Weight: "${state.details["Weight"]}",
-                            Rate: "${state.details["Rate"]}",
-                            Value: "${state.details["Value"]}",
-                            S_Rate: "${state.details["S_Rate"]}",
-                            S_Value: "${state.details["S_Value"]}")
+                          Lot_Description:
+                              "${state.details.tableData?.map((e) => e.lotDescription).join(', ')}",
+                          Group:
+                              "${state.details.tableData?.map((e) => e.group).join(', ')}",
+                          Units:
+                              "${state.details.tableData?.map((e) => e.units).join(', ')}",
+                          Pcs:
+                              "${state.details.tableData?.map((e) => e.pcs).join(', ')}",
+                          Weight:
+                              "${state.details.tableData?.map((e) => e.weight).join(', ')}",
+                          Rate:
+                              "${state.details.tableData?.map((e) => e.rate).join(', ')}",
+                          Value:
+                              "${state.details.tableData?.map((e) => e.value).join(', ')}",
+                          S_Rate:
+                              "${state.details.tableData?.map((e) => e.sRate).join(', ')}",
+                          S_Value:
+                              "${state.details.tableData?.map((e) => e.sValue).join(', ')}",
+                        )
                       ],
                     );
                   } else if (state is Error) {
                     return Center(child: Text('Error: ${state.message}'));
                   } else {
-                    return const Center(
-                        child: Text('Enter a query to search barcodes'));
+                    return InitialDataTab();
                   }
                 },
               ),
@@ -306,49 +319,5 @@ class TabletScreen extends StatelessWidget {
       ),
     );
   }
-
-  // Helper method to build each item container
-  Widget _buildItem(String text) {
-    return Container(
-      child: Center(
-          child: Text(
-        text,
-        style: TextStyle(color: Colors.white),
-      )),
-      width: 180,
-      height: 40,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(7),
-        color: Color(0xFF13151D),
-        border: Border.all(
-          width: 1.0,
-          color: Color(0xFFD9D9D9), // Set border color to transparent
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSearchResults(Map<String, dynamic> details) {
-    // Build the UI for displaying search results
-    // You can use this method to render the details of the search result
-    // Here, I'm returning a Container as a placeholder, you can customize it accordingly
-    return Container(
-      color: Colors.amber,
-      padding: const EdgeInsets.all(16.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("Barcode No.${details["Barcode"]}"),
-          Text("Location ${details["Location"]}"),
-          // Add more details here
-          // Example: Text("Branch ${details["Branch"]}"),
-        ],
-      ),
-    );
-  }
 }
 
-// Example of outerPadding function
-double outerPadding(BuildContext context) {
-  return 16.0; // Replace with your padding logic
-}

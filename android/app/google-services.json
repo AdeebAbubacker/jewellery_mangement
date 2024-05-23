@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "437532373987",
+    "project_id": "jewellerymangement",
+    "storage_bucket": "jewellerymangement.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437532373987:android:b2cee5cae3c6d3c187e6d6",
+        "android_client_info": {
+          "package_name": "com.example.jewellery_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMwLF3ANJOXNNkzgRjmPd1XxMH0p3tJno"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

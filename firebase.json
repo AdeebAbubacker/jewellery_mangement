@@ -1,0 +1,33 @@
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "jewellerymangement",
+          "appId": "1:437532373987:android:b2cee5cae3c6d3c187e6d6",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "jewellerymangement",
+          "configurations": {
+            "android": "1:437532373987:android:b2cee5cae3c6d3c187e6d6",
+            "ios": "1:437532373987:ios:2cf794f2deef55b287e6d6",
+            "macos": "1:437532373987:ios:2cf794f2deef55b287e6d6",
+            "web": "1:437532373987:web:c3499201912b951f87e6d6",
+            "windows": "1:437532373987:web:1e8011ba43f3b87987e6d6"
+          }
+        }
+      }
+    }
+  },
+  "hosting": {
+    "public": "build/web",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}

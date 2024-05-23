@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jewellery_app/core/constants/common.dart';
-import 'package:jewellery_app/core/view_model/search_barcode/search_barcode_bloc.dart';
+import 'package:jewellery_app/core/view_model/barcode/barcode_bloc.dart';
+import 'package:jewellery_app/ui/screens/web/widgets/content_pills.dart';
+import 'package:jewellery_app/ui/screens/web/widgets/initial_data.dart';
 import 'package:jewellery_app/ui/widgets/appbar.dart';
 import 'package:jewellery_app/ui/widgets/table.dart';
 
@@ -13,8 +15,8 @@ class WebScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     double screenheight = screenHeight(context);
     double screenwidth = screenWidth(context);
-      double padding435 = screenwidth * 435 / figmaDeviceWidth;
-      double width960 = screenwidth * 960 / figmaDeviceWidth;
+    double padding435 = screenwidth * 435 / figmaDeviceWidth;
+    double width960 = screenwidth * 960 / figmaDeviceWidth;
 
     return Scaffold(
       appBar: const HomeAppBar(), // Use const for performance optimization
@@ -62,8 +64,8 @@ class WebScreen extends StatelessWidget {
                             border: OutlineInputBorder(),
                           ),
                           onSubmitted: (query) {
-                            BlocProvider.of<SearchBarcodeBloc>(context)
-                                .add(SearchBarcodeEvent.fetchBarcodes(query));
+                            BlocProvider.of<BarcodeBloc>(context)
+                                .add(BarcodeEvent.fetchBarcodes(query));
                           },
                         ),
                       ),
@@ -72,8 +74,8 @@ class WebScreen extends StatelessWidget {
                       icon: const Icon(Icons.cancel),
                       onPressed: () async {
                         context
-                            .read<SearchBarcodeBloc>()
-                            .add(const SearchBarcodeEvent.cancelFetch());
+                            .read<BarcodeBloc>()
+                            .add(const BarcodeEvent.cancelFetch());
                       },
                     ),
                   ],
@@ -97,8 +99,8 @@ class WebScreen extends StatelessWidget {
               //               border: OutlineInputBorder(),
               //             ),
               //             onSubmitted: (query) {
-              //               BlocProvider.of<SearchBarcodeBloc>(context)
-              //                   .add(SearchBarcodeEvent.fetchBarcodes(query));
+              //               BlocProvider.of<BarcodeBloc>(context)
+              //                   .add(BarcodeEvent.fetchBarcodes(query));
               //             },
               //           ),
               //         ),
@@ -107,15 +109,15 @@ class WebScreen extends StatelessWidget {
               //         icon: const Icon(Icons.cancel),
               //         onPressed: () async {
               //           context
-              //               .read<SearchBarcodeBloc>()
-              //               .add(const SearchBarcodeEvent.cancelFetch());
+              //               .read<BarcodeBloc>()
+              //               .add(const BarcodeEvent.cancelFetch());
               //         },
               //       ),
               //     ],
               //   ),
               // ),
 
-              BlocBuilder<SearchBarcodeBloc, SearchBarcodeState>(
+              BlocBuilder<BarcodeBloc, BarcodeState>(
                 builder: (context, state) {
                   if (state is Loading) {
                     return const Center(child: CircularProgressIndicator());
@@ -131,14 +133,14 @@ class WebScreen extends StatelessWidget {
                           itemCount: state.barcodes.length,
                           itemBuilder: (context, index) {
                             final barcode =
-                                state.barcodes[index]['Barcode'].toString();
+                                state.barcodes[index].barcode.toString();
                             return Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: InkWell(
                                 onTap: () {
-                                  BlocProvider.of<SearchBarcodeBloc>(context)
-                                      .add(SearchBarcodeEvent
-                                          .fetchBarcodeDetails(barcode));
+                                  BlocProvider.of<BarcodeBloc>(context).add(
+                                      BarcodeEvent.fetchBarcodeDetails(
+                                          barcode));
                                 },
                                 child: ListTile(
                                   title: Text(
@@ -169,41 +171,42 @@ class WebScreen extends StatelessWidget {
                                 direction: Axis.horizontal,
                                 alignment: WrapAlignment.start,
                                 children: [
-                                  _buildItem(
-                                      "Barcode No.${state.details["Barcode"]}"),
-                                  _buildItem(
-                                      "Location ${state.details["Location"]}"),
-                                  _buildItem(
-                                      "Branch ${state.details["Branch"]}"),
-                                  _buildItem(
-                                      "Status ${state.details["Status"]}"),
-                                  _buildItem(
-                                      "Counter ${state.details["Counter"]}"),
-                                  _buildItem(
-                                      "Source ${state.details["Source"]}"),
-                                  _buildItem(
-                                      "Category ${state.details["Category"]}"),
-                                  _buildItem(
-                                      "Collection ${state.details["Collection"]}"),
-                                  _buildItem(
-                                      "Description ${state.details["Description"]}"),
-                                  _buildItem(
-                                      "Metal Grp ${state.details["Metal_Grp"]}"),
-                                  _buildItem(
-                                      "STK Section ${state.details["STK_Section"]}"),
-                                  _buildItem(
-                                      "Mfgd By ${state.details["Mfgd_By"]}"),
-                                  _buildItem("Notes ${state.details["Notes"]}"),
-                                  _buildItem(
-                                      "In STK Since ${state.details["In_STK_Since"]}"),
-                                  _buildItem(
-                                      "Cert No.${state.details["Cert_No"]}"),
-                                  _buildItem(
-                                      "HUID No.${state.details["HUID_No"]}"),
-                                  _buildItem(
-                                      "Order No.${state.details["Order_No"]}"),
-                                  _buildItem(
-                                      "Cus Name ${state.details["Cus_Name"]}"),
+                                  ContentPillsWeb(
+                                      "Barcode No. ${state.details.barcode}"),
+                                  ContentPillsWeb(
+                                      "Location ${state.details.location}"),
+                                  ContentPillsWeb(
+                                      "Branch ${state.details.branch}"),
+                                  ContentPillsWeb(
+                                      "Status ${state.details.status}"),
+                                  ContentPillsWeb(
+                                      "Counter ${state.details.counter}"),
+                                  ContentPillsWeb(
+                                      "Source ${state.details.source}"),
+                                  ContentPillsWeb(
+                                      "Category ${state.details.category}"),
+                                  ContentPillsWeb(
+                                      "Collection ${state.details.collection}"),
+                                  ContentPillsWeb(
+                                      "Description ${state.details.description}"),
+                                  ContentPillsWeb(
+                                      "Metal Grp ${state.details.metalGrp}"),
+                                  ContentPillsWeb(
+                                      "STK Section ${state.details.stkSection}"),
+                                  ContentPillsWeb(
+                                      "Mfgd By ${state.details.mfgdBy}"),
+                                  ContentPillsWeb(
+                                      "Notes ${state.details.notes}"),
+                                  ContentPillsWeb(
+                                      "In STK Since ${state.details.inStkSince}"),
+                                  ContentPillsWeb(
+                                      "Cert No. ${state.details.certNo}"),
+                                  ContentPillsWeb(
+                                      "HUID No. ${state.details.huidNo}"),
+                                  ContentPillsWeb(
+                                      "Order No. ${state.details.orderNo}"),
+                                  ContentPillsWeb(
+                                      "Cus Name ${state.details.cusName}"),
                                 ],
                               ),
                             ),
@@ -233,7 +236,7 @@ class WebScreen extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(
                                     6), // Ensures the image respects the border radius
                                 child: Image.network(
-                                  state.details["image_link"] ?? '',
+                                  state.details.imageLink ?? '',
                                   fit: BoxFit
                                       .cover, // or BoxFit.contain depending on your requirement
                                   errorBuilder: (context, error, stackTrace) {
@@ -254,50 +257,59 @@ class WebScreen extends StatelessWidget {
                           direction: Axis.horizontal,
                           alignment: WrapAlignment.start,
                           children: [
-                            _buildItem("Size ${state.details["Size"]}"),
-                            _buildItem("Quality ${state.details["Quality"]}"),
-                            _buildItem("KT ${state.details["KT"]}"),
-                            _buildItem("Pcs ${state.details["Pcs"]}"),
-                            _buildItem("Gross Wt ${state.details["Gross_Wt"]}"),
-                            _buildItem("Net Wt ${state.details["Net_Wt"]}"),
-                            _buildItem("Dia Pcs ${state.details["Dia_Pcs"]}"),
-                            _buildItem("Dia Wt ${state.details["Dia_Wt"]}"),
-                            _buildItem("Cls Pcs ${state.details["Cls_Pcs"]}"),
-                            _buildItem("Cls Wt ${state.details["Cls_Wt"]}"),
-                            _buildItem("Chain Wt ${state.details["Chain_Wt"]}"),
-                            _buildItem("M Rate ${state.details["M_Rate"]}"),
-                            _buildItem("M Value ${state.details["L_Rate"]}"),
-                            _buildItem("L Rate ${state.details["L_Rate"]}"),
-                            _buildItem(
-                                "L Charges ${state.details["L_Charges"]}"),
-                            _buildItem(
-                                "R Charges ${state.details["R_Charges"]}"),
-                            _buildItem(
-                                "O Charges ${state.details["O_Charges"]}"),
-                            _buildItem("MRP ${state.details["MRP"]}"),
+                            ContentPillsWeb("Size ${state.details.size}"),
+                            ContentPillsWeb("Quality ${state.details.quality}"),
+                            ContentPillsWeb("KT ${state.details.kt}"),
+                            ContentPillsWeb("Pcs ${state.details.pcs}"),
+                            ContentPillsWeb(
+                                "Gross Wt ${state.details.grossWt}"),
+                            ContentPillsWeb("Net Wt ${state.details.netWt}"),
+                            ContentPillsWeb("Dia Pcs ${state.details.diaPcs}"),
+                            ContentPillsWeb("Dia Wt ${state.details.diaWt}"),
+                            ContentPillsWeb("Cls Pcs ${state.details.clsPcs}"),
+                            ContentPillsWeb("Cls Wt ${state.details.clsWt}"),
+                            ContentPillsWeb(
+                                "Chain Wt ${state.details.chainWt}"),
+                            ContentPillsWeb("M Rate ${state.details.mRate}"),
+                            ContentPillsWeb("M Value ${state.details.mValue}"),
+                            ContentPillsWeb("L Rate ${state.details.lRate}"),
+                            ContentPillsWeb(
+                                "L Charges ${state.details.lCharges}"),
+                            ContentPillsWeb(
+                                "R Charges ${state.details.rCharges}"),
+                            ContentPillsWeb(
+                                "O Charges ${state.details.oCharges}"),
+                            ContentPillsWeb("MRP ${state.details.mrp}"),
                           ],
                         ),
-                        ///-------------
-                        const SizedBox(
-                            height: 20), // Add spacing before the table
+
+                        const SizedBox(height: 20),
                         MyDataTable(
-                            Lot_Description:
-                                "${state.details["Lot_Description"]}",
-                            Group: "${state.details["Group"]}",
-                            Units: "${state.details["Units"]}",
-                            Pcs: "${state.details["Pcs"]}",
-                            Weight: "${state.details["Weight"]}",
-                            Rate: "${state.details["Rate"]}",
-                            Value: "${state.details["Value"]}",
-                            S_Rate: "${state.details["S_Rate"]}",
-                            S_Value: "${state.details["S_Value"]}")
+                          Lot_Description:
+                              "${state.details.tableData?.map((e) => e.lotDescription).join(', ')}",
+                          Group:
+                              "${state.details.tableData?.map((e) => e.group).join(', ')}",
+                          Units:
+                              "${state.details.tableData?.map((e) => e.units).join(', ')}",
+                          Pcs:
+                              "${state.details.tableData?.map((e) => e.pcs).join(', ')}",
+                          Weight:
+                              "${state.details.tableData?.map((e) => e.weight).join(', ')}",
+                          Rate:
+                              "${state.details.tableData?.map((e) => e.rate).join(', ')}",
+                          Value:
+                              "${state.details.tableData?.map((e) => e.value).join(', ')}",
+                          S_Rate:
+                              "${state.details.tableData?.map((e) => e.sRate).join(', ')}",
+                          S_Value:
+                              "${state.details.tableData?.map((e) => e.sValue).join(', ')}",
+                        )
                       ],
                     );
                   } else if (state is Error) {
-                    return Center(child: Text('Error: ${state.message}'));
+                    return Center(child: Text('Error: '));
                   } else {
-                    return const Center(
-                        child: Text('Enter a query to search barcodes'));
+                    return InitialDataWeb();
                   }
                 },
               ),
@@ -307,29 +319,4 @@ class WebScreen extends StatelessWidget {
       ),
     );
   }
-
-  // Helper method to build each item container
-  Widget _buildItem(String text) {
-    return Container(
-      child: Center(
-          child: Text(
-        text,
-        style: TextStyle(color: Colors.white),
-      )),
-      width: 180,
-      height: 40,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(7),
-        color: Color(0xFF13151D),
-        border: Border.all(
-          width: 1.0,
-          color: Color(0xFFD9D9D9), // Set border color to transparent
-        ),
-      ),
-    );
-  }
-
- 
 }
-
-

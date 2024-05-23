@@ -121,47 +121,47 @@ class MyDataTable extends StatelessWidget {
                     DataCell(SizedBox(
                       width: constraints.maxWidth *
                           0.1, // Adjust the width as needed
-                      child: Text('CBR'),
+                      child: Text(Lot_Description),
                     )),
                     DataCell(SizedBox(
                       width: constraints.maxWidth *
                           0.1, // Adjust the width as needed
-                      child: Text('GOLD'),
+                      child: Text(Group),
                     )),
                     DataCell(SizedBox(
                       width: constraints.maxWidth *
                           0.1, // Adjust the width as needed
-                      child: Text('CARATS'),
+                      child: Text(Units),
                     )),
                     DataCell(SizedBox(
                       width: constraints.maxWidth *
                           0.05, // Adjust the width as needed
-                      child: Text('1'),
+                      child: Text(Pcs),
                     )),
                     DataCell(SizedBox(
                       width: constraints.maxWidth *
                           0.1, // Adjust the width as needed
-                      child: Text('0.05'),
+                      child: Text(Weight),
                     )),
                     DataCell(SizedBox(
                       width: constraints.maxWidth *
                           0.1, // Adjust the width as needed
-                      child: Text('0.0'),
+                      child: Text(Rate),
                     )),
                     DataCell(SizedBox(
                       width: constraints.maxWidth *
                           0.1, // Adjust the width as needed
-                      child: Text('0.0'),
+                      child: Text(Value),
                     )),
                     DataCell(SizedBox(
                       width: constraints.maxWidth *
                           0.1, // Adjust the width as needed
-                      child: Text('0.0'),
+                      child: Text(S_Rate),
                     )),
                     DataCell(SizedBox(
                       width: constraints.maxWidth *
                           0.1, // Adjust the width as needed
-                      child: Text('0.0'),
+                      child: Text(S_Value),
                     )),
                   ],
                 ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jewellery_app/ui/screens/mobile/phone_screen.dart';
+import 'package:jewellery_app/ui/screens/mobile/mobile_screen.dart';
 import 'package:jewellery_app/ui/screens/tablet/tablet_screen.dart';
 import 'package:jewellery_app/ui/screens/web/web_screen.dart';
 
@@ -19,14 +19,14 @@ class ResponsiveLayout extends StatelessWidget {
         child: LayoutBuilder(
           builder: (context, constraints) {
             if (constraints.maxWidth > 1200) {
-              // Web layout
               return WebScreen();
             } else if (constraints.maxWidth > 600) {
-              // Tablet layout
-              return TabletScreen();
+              // Tablet layout     
+           
+               return TabletScreen();
             } else {
               // Phone layout
-              return PhoneScreen();
+              return MobileScreen();
             }
           },
         ),
