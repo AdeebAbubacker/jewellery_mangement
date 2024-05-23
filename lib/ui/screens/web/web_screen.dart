@@ -277,6 +277,7 @@ class WebScreen extends StatelessWidget {
                             _buildItem("MRP ${state.details["MRP"]}"),
                           ],
                         ),
+                        ///-------------
                         const SizedBox(
                             height: 20), // Add spacing before the table
                         MyDataTable(
