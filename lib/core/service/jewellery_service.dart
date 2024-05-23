@@ -26,6 +26,6 @@ class BarcodeDetailsService {
         return item;
       }
     }
-    return null; // Return null if details for the barcode are not found
+    return null; 
   }
 }

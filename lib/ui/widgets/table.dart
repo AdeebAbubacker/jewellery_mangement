@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class MyDataTable extends StatelessWidget {
   final String Lot_Description;
   final String Group;
@@ -34,80 +33,72 @@ class MyDataTable extends StatelessWidget {
             constraints: BoxConstraints(minWidth: constraints.maxWidth),
             child: DataTable(
               dataRowColor: MaterialStateProperty.all(
-                Color.fromRGBO(44, 44, 44, 1),
+                const Color.fromRGBO(44, 44, 44, 1),
               ),
               dividerThickness: 0,
               headingRowColor: MaterialStateProperty.all(
-                Color.fromRGBO(73, 76, 83, 1.0),
+                const Color.fromRGBO(73, 76, 83, 1.0),
               ),
-              headingTextStyle: TextStyle(color: Colors.white),
+              headingTextStyle: const TextStyle(color: Colors.white),
+              dataTextStyle: const TextStyle(color: Colors.white),
               columns: <DataColumn>[
                 DataColumn(
                   label: SizedBox(
-                    width: constraints.maxWidth *
-                        0.1, // Adjust the width as needed
-                    child: Text('LOT Description'),
+                    width: constraints.maxWidth * 0.1,
+                    child: const Text('LOT Description'),
                   ),
                 ),
                 DataColumn(
                   label: SizedBox(
-                    width: constraints.maxWidth *
-                        0.1, // Adjust the width as needed
-                    child: Text('Group'),
+                    width: constraints.maxWidth * 0.1,
+                    child: const Text('Group'),
                   ),
                 ),
                 DataColumn(
                   label: SizedBox(
-                    width: constraints.maxWidth *
-                        0.1, // Adjust the width as needed
-                    child: Text('Units'),
+                    width: constraints.maxWidth * 0.1,
+                    child: const Text('Units'),
                   ),
                 ),
                 DataColumn(
                   label: SizedBox(
-                    width: constraints.maxWidth *
-                        0.05, // Adjust the width as needed
-                    child: Text('Pcs'),
+                    width: constraints.maxWidth * 0.05,
+                    child: const Text('Pcs'),
                   ),
                   numeric: true,
                 ),
                 DataColumn(
                   label: SizedBox(
-                    width: constraints.maxWidth *
-                        0.1, // Adjust the width as needed
-                    child: Text('Weight'),
+                    width: constraints.maxWidth * 0.1,
+                    child: const Text('Weight'),
                   ),
                   numeric: true,
                 ),
                 DataColumn(
                   label: SizedBox(
-                    width: constraints.maxWidth *
-                        0.1, // Adjust the width as needed
-                    child: Text('Rate'),
+                    width: constraints.maxWidth * 0.1,
+                    child: const Text('Rate'),
                   ),
                   numeric: true,
                 ),
                 DataColumn(
                   label: SizedBox(
-                    width: constraints.maxWidth *
-                        0.1, // Adjust the width as needed
-                    child: Text('Value'),
+                    width: constraints.maxWidth * 0.1,
+                    child: const Text('Value'),
                   ),
                   numeric: true,
                 ),
                 DataColumn(
                   label: SizedBox(
-                    width: constraints.maxWidth *
-                        0.1, // Adjust the width as needed
-                    child: Text('S Rate'),
+                    width: constraints.maxWidth * 0.1,
+                    child: const Text('S Rate'),
                   ),
                   numeric: true,
                 ),
                 DataColumn(
                   label: SizedBox(
-                    width: constraints.maxWidth *
-                        0.1, // Adjust the width as needed
-                    child: Text('S Value'),
+                    width: constraints.maxWidth * 0.1,
+                    child: const Text('S Value'),
                   ),
                   numeric: true,
                 ),
@@ -115,53 +106,87 @@ class MyDataTable extends StatelessWidget {
               rows: <DataRow>[
                 DataRow(
                   color: MaterialStateProperty.all(
-                    Color.fromARGB(255, 53, 53, 54),
+                    const Color.fromARGB(255, 53, 53, 54),
                   ),
                   cells: [
                     DataCell(SizedBox(
-                      width: constraints.maxWidth *
-                          0.1, // Adjust the width as needed
+                      width: constraints.maxWidth * 0.1,
                       child: Text(Lot_Description),
                     )),
                     DataCell(SizedBox(
-                      width: constraints.maxWidth *
-                          0.1, // Adjust the width as needed
+                      width: constraints.maxWidth * 0.1,
                       child: Text(Group),
                     )),
                     DataCell(SizedBox(
-                      width: constraints.maxWidth *
-                          0.1, // Adjust the width as needed
+                      width: constraints.maxWidth * 0.1,
                       child: Text(Units),
                     )),
                     DataCell(SizedBox(
-                      width: constraints.maxWidth *
-                          0.05, // Adjust the width as needed
+                      width: constraints.maxWidth * 0.05,
                       child: Text(Pcs),
                     )),
                     DataCell(SizedBox(
-                      width: constraints.maxWidth *
-                          0.1, // Adjust the width as needed
+                      width: constraints.maxWidth * 0.1,
                       child: Text(Weight),
                     )),
                     DataCell(SizedBox(
-                      width: constraints.maxWidth *
-                          0.1, // Adjust the width as needed
+                      width: constraints.maxWidth * 0.1,
                       child: Text(Rate),
                     )),
                     DataCell(SizedBox(
-                      width: constraints.maxWidth *
-                          0.1, // Adjust the width as needed
+                      width: constraints.maxWidth * 0.1,
                       child: Text(Value),
                     )),
                     DataCell(SizedBox(
-                      width: constraints.maxWidth *
-                          0.1, // Adjust the width as needed
+                      width: constraints.maxWidth * 0.1,
                       child: Text(S_Rate),
                     )),
                     DataCell(SizedBox(
-                      width: constraints.maxWidth *
-                          0.1, // Adjust the width as needed
+                      width: constraints.maxWidth * 0.1,
                       child: Text(S_Value),
+                    )),
+                  ],
+                ),
+                DataRow(
+                  color: MaterialStateProperty.all(
+                    const Color.fromARGB(255, 53, 53, 54),
+                  ),
+                  cells: [
+                    DataCell(SizedBox(
+                      width: constraints.maxWidth * 0.1,
+                      child: Text(""),
+                    )),
+                    DataCell(SizedBox(
+                      width: constraints.maxWidth * 0.1,
+                      child: Text(""),
+                    )),
+                    DataCell(SizedBox(
+                      width: constraints.maxWidth * 0.1,
+                      child: Text(""),
+                    )),
+                    DataCell(SizedBox(
+                      width: constraints.maxWidth * 0.1,
+                      child: Text(""),
+                    )),
+                    DataCell(SizedBox(
+                      width: constraints.maxWidth * 0.1,
+                      child: Text(""),
+                    )),
+                    DataCell(SizedBox(
+                      width: constraints.maxWidth * 0.1,
+                      child: Text(""),
+                    )),
+                    DataCell(SizedBox(
+                      width: constraints.maxWidth * 0.1,
+                      child: Text(""),
+                    )),
+                    DataCell(SizedBox(
+                      width: constraints.maxWidth * 0.1,
+                      child: Text(""),
+                    )),
+                    DataCell(SizedBox(
+                      width: constraints.maxWidth * 0.1,
+                      child: Text(""),
                     )),
                   ],
                 ),

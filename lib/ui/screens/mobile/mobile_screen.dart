@@ -2,15 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:jewellery_app/ui/screens/mobile/widgets/content_pills.dart';
 import 'package:jewellery_app/ui/screens/mobile/widgets/initial_data.dart';
 import 'package:jewellery_app/ui/widgets/appbar.dart';
-
-import 'package:flutter/material.dart';
-import 'package:jewellery_app/ui/widgets/appbar.dart';
-
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jewellery_app/core/constants/common.dart';
 import 'package:jewellery_app/core/view_model/barcode/barcode_bloc.dart';
-import 'package:jewellery_app/ui/widgets/appbar.dart';
 import 'package:jewellery_app/ui/widgets/table.dart';
 
 class MobileScreen extends StatelessWidget {
@@ -19,13 +13,10 @@ class MobileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenheight = screenHeight(context);
-    double screenwidth = screenWidth(context);
-    double width960 = screenwidth * 960 / figmaDeviceWidth;
     return Scaffold(
-      appBar: const HomeAppBar(), // Use const for performance optimization
-      extendBodyBehindAppBar: true, // extends body behind app bar
-      backgroundColor: Colors.transparent, // make background transparent
+      appBar: const HomeAppBar(),
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.transparent,
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: outerPadding(context)),
@@ -33,19 +24,21 @@ class MobileScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 80),
-              Padding(
+             
+              const SizedBox(height: 6),
+               Padding(
                 padding: EdgeInsets.only(left: outerPadding(context)),
                 child: Container(
-                  width: 200,
-                  height: 50,
+                  width: 180,
+                  height: 40,
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(9),
                   ),
-                  child: Center(child: Text("Details")),
+                  child: const Center(child: Text("Details")),
                 ),
               ),
-              const SizedBox(height: 6),
+              const SizedBox(height: 16),
               Container(
                 width: double.infinity,
                 height: 1,
@@ -59,13 +52,21 @@ class MobileScreen extends StatelessWidget {
                     Flexible(
                       // or Expanded
                       child: Container(
-                        height: 70,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          color: Color(0xFF22242B),
+                        ),
                         width: 200,
                         child: TextField(
                           controller: _controller,
+                          style: TextStyle(color: Colors.white),
                           decoration: const InputDecoration(
-                            labelText: 'Search',
-                            border: OutlineInputBorder(),
+                            contentPadding:
+                                EdgeInsets.only(left: 30), // Add left padding
+                            hintText: 'Search',
+                            border: InputBorder.none,
+                            enabledBorder: InputBorder.none,
+                            focusedBorder: InputBorder.none,
                           ),
                           onSubmitted: (query) {
                             BlocProvider.of<BarcodeBloc>(context)
@@ -73,53 +74,34 @@ class MobileScreen extends StatelessWidget {
                           },
                         ),
                       ),
+
+                      // SizedBox(
+                      //   height: 70,
+                      //   width: 200,
+                      //   child: TextField(
+                      //     controller: _controller,
+                      //     decoration: const InputDecoration(
+                      //       labelText: 'Search',
+                      //       border: OutlineInputBorder(),
+                      //     ),
+                      //     onSubmitted: (query) {
+                      //       BlocProvider.of<BarcodeBloc>(context)
+                      //           .add(BarcodeEvent.fetchBarcodes(query));
+                      //     },
+                      //   ),
+                      // ),
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.cancel),
-                      onPressed: () async {
-                        context
-                            .read<BarcodeBloc>()
-                            .add(const BarcodeEvent.cancelFetch());
-                      },
-                    ),
+                    TextButton(
+                        onPressed: () async {
+                          _controller.clear();
+                          context
+                              .read<BarcodeBloc>()
+                              .add(const BarcodeEvent.cancelFetch());
+                        },
+                        child: const Text("Clear")),
                   ],
                 ),
               ),
-
-              // Center(
-              //   child: Row(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [
-              //       Padding(
-              //         padding: const EdgeInsets.only(left: 8, right: 8),
-              //         child: Container(
-              //           width: 962,
-              //           height: 70,
-              //           child: TextField(
-              //             controller: _controller,
-              //             decoration: const InputDecoration(
-              //               labelText: 'Search',
-              //               border: OutlineInputBorder(),
-              //             ),
-              //             onSubmitted: (query) {
-              //               BlocProvider.of<BarcodeBloc>(context)
-              //                   .add(BarcodeEvent.fetchBarcodes(query));
-              //             },
-              //           ),
-              //         ),
-              //       ),
-              //       IconButton(
-              //         icon: const Icon(Icons.cancel),
-              //         onPressed: () async {
-              //           context
-              //               .read<BarcodeBloc>()
-              //               .add(const BarcodeEvent.cancelFetch());
-              //         },
-              //       ),
-              //     ],
-              //   ),
-              // ),
-
               BlocBuilder<BarcodeBloc, BarcodeState>(
                 builder: (context, state) {
                   if (state is Loading) {
@@ -128,11 +110,12 @@ class MobileScreen extends StatelessWidget {
                     return Center(
                       child: Container(
                         width: 962,
-                        color: Color(0xFF1D1D1D),
+                        decoration: BoxDecoration(
+                            color: const Color(0xFF1D1D1D),
+                            borderRadius: BorderRadius.circular(15)),
                         child: ListView.builder(
                           shrinkWrap: true,
-                          physics:
-                              NeverScrollableScrollPhysics(), // Disable scrolling for ListView
+                          physics: const NeverScrollableScrollPhysics(),
                           itemCount: state.barcodes.length,
                           itemBuilder: (context, index) {
                             final barcode =
@@ -148,7 +131,7 @@ class MobileScreen extends StatelessWidget {
                                 child: ListTile(
                                   title: Text(
                                     barcode,
-                                    style: TextStyle(color: Colors.white),
+                                    style: const TextStyle(color: Colors.white),
                                   ),
                                 ),
                               ),
@@ -161,15 +144,15 @@ class MobileScreen extends StatelessWidget {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        SizedBox(height: 30),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Flexible(
                               child: Wrap(
-                                spacing:
-                                    12.0, // Horizontal spacing between items
-                                runSpacing:
-                                    13.0, // Vertical spacing between lines
+                                spacing: 12.0,
+                                runSpacing: 13.0,
                                 runAlignment: WrapAlignment.start,
                                 direction: Axis.horizontal,
                                 alignment: WrapAlignment.start,
@@ -213,49 +196,44 @@ class MobileScreen extends StatelessWidget {
                                 ],
                               ),
                             ),
-                            SizedBox(width: 10),
+                            const SizedBox(width: 10),
                             Container(
-                              width: 200,
-                              height: 200,
+                              width: 110,
+                              height: 140,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(9),
                                 color: Colors.white,
                                 border: Border.all(
-                                  color: Colors.white, // Set the border color
-                                  width: 3, // Set the border width
+                                  color: Colors.white,
+                                  width: 3,
                                 ),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.grey
-                                        .withOpacity(0.5), // Shadow color
-                                    spreadRadius: 2, // Spread radius
-                                    blurRadius: 7, // Blur radius
-                                    offset:
-                                        Offset(0, 3), // Offset of the shadow
+                                    color: Colors.grey.withOpacity(0.5),
+                                    spreadRadius: 2,
+                                    blurRadius: 7,
+                                    offset: const Offset(0, 3),
                                   ),
                                 ],
                               ),
                               child: ClipRRect(
-                                borderRadius: BorderRadius.circular(
-                                    6), // Ensures the image respects the border radius
+                                borderRadius: BorderRadius.circular(6),
                                 child: Image.network(
                                   state.details.imageLink ?? '',
-                                  fit: BoxFit
-                                      .cover, // or BoxFit.contain depending on your requirement
+                                  fit: BoxFit.cover,
                                   errorBuilder: (context, error, stackTrace) {
-                                    return Center(
-                                        child: Text(
-                                            'Image not available')); // Handle image loading errors
+                                    return const Center(
+                                        child: Text('Image not available'));
                                   },
                                 ),
                               ),
                             ),
                           ],
                         ),
-                        const SizedBox(height: 20), // Add spacing between rows
+                        const SizedBox(height: 20),
                         Wrap(
-                          spacing: 12.0, // Horizontal spacing between items
-                          runSpacing: 13.0, // Vertical spacing between lines
+                          spacing: 12.0,
+                          runSpacing: 13.0,
                           runAlignment: WrapAlignment.start,
                           direction: Axis.horizontal,
                           alignment: WrapAlignment.start,
@@ -285,8 +263,7 @@ class MobileScreen extends StatelessWidget {
                             ContentPillsMob("MRP ${state.details.mrp}"),
                           ],
                         ),
-                        const SizedBox(
-                            height: 20), // Add spacing before the table
+                        const SizedBox(height: 20),
                         MyDataTable(
                           Lot_Description:
                               "${state.details.tableData?.map((e) => e.lotDescription).join(', ')}",
@@ -306,14 +283,14 @@ class MobileScreen extends StatelessWidget {
                               "${state.details.tableData?.map((e) => e.sRate).join(', ')}",
                           S_Value:
                               "${state.details.tableData?.map((e) => e.sValue).join(', ')}",
-                        )
+                        ),
+                        const SizedBox(height: 30)
                       ],
                     );
                   } else if (state is Error) {
                     return Center(child: Text('Error: ${state.message}'));
                   } else {
-                    return 
-                    InitialDataMob();
+                    return const InitialDataMob();
                   }
                 },
               ),

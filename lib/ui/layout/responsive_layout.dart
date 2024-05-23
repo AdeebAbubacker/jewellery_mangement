@@ -12,8 +12,8 @@ class ResponsiveLayout extends StatelessWidget {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/BG.png'), // Replace with your image path
-            fit: BoxFit.cover, // Ensures the image covers the entire background
+            image: AssetImage('assets/BG.png'),
+            fit: BoxFit.cover,
           ),
         ),
         child: LayoutBuilder(
@@ -21,11 +21,8 @@ class ResponsiveLayout extends StatelessWidget {
             if (constraints.maxWidth > 1200) {
               return WebScreen();
             } else if (constraints.maxWidth > 600) {
-              // Tablet layout     
-           
-               return TabletScreen();
+              return TabletScreen();
             } else {
-              // Phone layout
               return MobileScreen();
             }
           },

@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 
 class ContentPillsMob extends StatelessWidget {
@@ -10,21 +7,22 @@ class ContentPillsMob extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(
-          child: Text(
-        text,
-        style: TextStyle(color: Colors.white),
-      )),
-      width: 180,
+      width: 110,
       height: 40,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(7),
-        color: Color(0xFF13151D),
+        color: const Color(0xFF13151D),
         border: Border.all(
           width: 1.0,
-          color: Color(0xFFD9D9D9), // Set border color to transparent
+          color: const Color(0xFFD9D9D9),
         ),
       ),
+      child: Center(
+          child: Text(
+        textAlign: TextAlign.center,
+        text,
+        style: const TextStyle(color: Colors.white, fontSize: 9),
+      )),
     );
   }
 }

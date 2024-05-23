@@ -1,6 +1,3 @@
-
-
-
 import 'package:flutter/material.dart';
 import 'package:jewellery_app/ui/screens/mobile/widgets/content_pills.dart';
 import 'package:jewellery_app/ui/widgets/table.dart';
@@ -15,15 +12,15 @@ class InitialDataMob extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SizedBox(height: 30,),
         Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Flexible(
+            const Flexible(
               child: Wrap(
-                spacing:
-                    12.0, // Horizontal spacing between items
-                runSpacing:
-                    13.0, // Vertical spacing between lines
+                spacing: 12.0,
+                runSpacing: 13.0,
                 runAlignment: WrapAlignment.start,
                 direction: Axis.horizontal,
                 alignment: WrapAlignment.start,
@@ -49,40 +46,39 @@ class InitialDataMob extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Container(
-              width: 200,
-              height: 200,
+              width: 110,
+              height: 140,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(9),
                 color: Colors.white,
                 border: Border.all(
-                  color: Colors.white, // Set the border color
-                  width: 3, // Set the border width
+                  color: Colors.white,
+                  width: 3,
                 ),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.grey
-                        .withOpacity(0.5), // Shadow color
-                    spreadRadius: 2, // Spread radius
-                    blurRadius: 7, // Blur radius
-                    offset:
-                        Offset(0, 3), // Offset of the shadow
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 7,
+                    offset: const Offset(0, 3),
                   ),
                 ],
               ),
-              child: Center(
+              child: const Center(
                 child: Text(
                   "Display Image Here",
+                  textAlign: TextAlign.center,
                 ),
               ),
             ),
           ],
         ),
-        const SizedBox(height: 20), // Add spacing between rows
-        Wrap(
-          spacing: 12.0, // Horizontal spacing between items
-          runSpacing: 13.0, // Vertical spacing between lines
+        const SizedBox(height: 20),
+        const Wrap(
+          spacing: 12.0,
+          runSpacing: 13.0,
           runAlignment: WrapAlignment.start,
           direction: Axis.horizontal,
           alignment: WrapAlignment.start,
@@ -107,9 +103,8 @@ class InitialDataMob extends StatelessWidget {
             ContentPillsMob("MRP"),
           ],
         ),
-        const SizedBox(
-            height: 20), // Add spacing before the table
-        MyDataTable(
+        const SizedBox(height: 20),
+        const MyDataTable(
           Lot_Description: "",
           Group: "",
           Units: "",

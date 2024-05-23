@@ -9,16 +9,16 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       backgroundColor:
-          Colors.transparent, // set the app bar background color to transparent
-      elevation: 0, // remove shadow
+          Colors.transparent, 
+      elevation: 0, 
       leading: IconButton(
-        // add leading hamburger menu icon
+      
         icon: const Icon(
           Icons.menu,
           color: Colors.white,
         ),
         onPressed: () {
-          // Handle menu button tap
+       
         },
       ),
     );

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:jewellery_app/ui/screens/web/widgets/content_pills.dart';
 import 'package:jewellery_app/ui/widgets/table.dart';
@@ -14,10 +12,14 @@ class InitialDataWeb extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SizedBox(
+          height: 30,
+        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Flexible(
+            const Flexible(
               child: Wrap(
                 spacing: 12.0, // Horizontal spacing between items
                 runSpacing: 13.0, // Vertical spacing between lines
@@ -46,10 +48,10 @@ class InitialDataWeb extends StatelessWidget {
                 ],
               ),
             ),
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
             Container(
-              width: 200,
-              height: 200,
+              width: 120,
+              height: 145,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(9),
                 color: Colors.white,
@@ -69,6 +71,7 @@ class InitialDataWeb extends StatelessWidget {
               child: Center(
                 child: Text(
                   "Display Image Here",
+                  textAlign: TextAlign.center,
                 ),
               ),
             ),
@@ -82,7 +85,6 @@ class InitialDataWeb extends StatelessWidget {
           direction: Axis.horizontal,
           alignment: WrapAlignment.start,
           children: [
-            ContentPillsWeb("d"),
             ContentPillsWeb("Size"),
             ContentPillsWeb("Quality"),
             ContentPillsWeb("KT"),
