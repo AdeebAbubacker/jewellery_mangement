@@ -104,17 +104,17 @@ class InitialDataTab extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 20),
-        const MyDataTable(
-          Lot_Description: "",
-          Group: "",
-          Units: "",
-          Pcs: "",
-          Weight: "",
-          Rate: "",
-          Value: "",
-          S_Rate: "",
-          S_Value: "",
-        )
+       
+        MyDataTable(
+            lotDescription: "",
+            group: "",
+            units: "",
+            pcs: "",
+            weight: "",
+            rate: "",
+            value: "",
+            sRate: "",
+            sValue: ""),
       ],
     );
   }

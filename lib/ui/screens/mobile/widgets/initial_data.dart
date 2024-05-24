@@ -12,7 +12,9 @@ class InitialDataMob extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(height: 30,),
+        SizedBox(
+          height: 30,
+        ),
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -104,17 +106,17 @@ class InitialDataMob extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 20),
-        const MyDataTable(
-          Lot_Description: "",
-          Group: "",
-          Units: "",
-          Pcs: "",
-          Weight: "",
-          Rate: "",
-          Value: "",
-          S_Rate: "",
-          S_Value: "",
-        )
+        
+        MyDataTable(
+            lotDescription: "",
+            group: "",
+            units: "",
+            pcs: "",
+            weight: "",
+            rate: "",
+            value: "",
+            sRate: "",
+            sValue: ""),
       ],
     );
   }

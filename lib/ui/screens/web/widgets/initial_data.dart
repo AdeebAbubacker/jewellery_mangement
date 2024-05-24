@@ -108,16 +108,16 @@ class InitialDataWeb extends StatelessWidget {
 
         const SizedBox(height: 20),
         MyDataTable(
-          Lot_Description: "",
-          Group: "",
-          Units: "",
-          Pcs: "",
-          Weight: "",
-          Rate: "",
-          Value: "",
-          S_Rate: "",
-          S_Value: "",
-        )
+            lotDescription: "",
+            group: "",
+            units: "",
+            pcs: "",
+            weight: "",
+            rate: "",
+            value: "",
+            sRate: "",
+            sValue: ""),
+     
       ],
     );
   }

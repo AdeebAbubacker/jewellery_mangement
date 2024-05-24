@@ -258,24 +258,25 @@ class WebScreen extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 20),
+                      
                         MyDataTable(
-                          Lot_Description:
+                          lotDescription:
                               "${state.details.tableData?.map((e) => e.lotDescription).join(', ')}",
-                          Group:
+                          group:
                               "${state.details.tableData?.map((e) => e.group).join(', ')}",
-                          Units:
+                          units:
                               "${state.details.tableData?.map((e) => e.units).join(', ')}",
-                          Pcs:
+                          pcs:
                               "${state.details.tableData?.map((e) => e.pcs).join(', ')}",
-                          Weight:
+                          weight:
                               "${state.details.tableData?.map((e) => e.weight).join(', ')}",
-                          Rate:
+                          rate:
                               "${state.details.tableData?.map((e) => e.rate).join(', ')}",
-                          Value:
+                          value:
                               "${state.details.tableData?.map((e) => e.value).join(', ')}",
-                          S_Rate:
+                          sRate:
                               "${state.details.tableData?.map((e) => e.sRate).join(', ')}",
-                          S_Value:
+                          sValue:
                               "${state.details.tableData?.map((e) => e.sValue).join(', ')}",
                         ),
                         const SizedBox(height: 90)
