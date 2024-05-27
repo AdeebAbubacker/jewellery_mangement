@@ -36,15 +36,6 @@ class InitialDataMob extends StatelessWidget {
                   ContentPillsMob("Category"),
                   ContentPillsMob("Collection"),
                   ContentPillsMob("Description"),
-                  ContentPillsMob("Metal Grp"),
-                  ContentPillsMob("STK Section"),
-                  ContentPillsMob("Mfgd By"),
-                  ContentPillsMob("Notes"),
-                  ContentPillsMob("In STK Since"),
-                  ContentPillsMob("Cert No."),
-                  ContentPillsMob("HUID No"),
-                  ContentPillsMob("Order No."),
-                  ContentPillsMob("Cus Name"),
                 ],
               ),
             ),
@@ -85,6 +76,15 @@ class InitialDataMob extends StatelessWidget {
           direction: Axis.horizontal,
           alignment: WrapAlignment.start,
           children: [
+            ContentPillsMob("Metal Grp"),
+            ContentPillsMob("STK Section"),
+            ContentPillsMob("Mfgd By"),
+            ContentPillsMob("Notes"),
+            ContentPillsMob("In STK Since"),
+            ContentPillsMob("Cert No."),
+            ContentPillsMob("HUID No"),
+            ContentPillsMob("Order No."),
+            ContentPillsMob("Cus Name"),
             ContentPillsMob("Size"),
             ContentPillsMob("Quality"),
             ContentPillsMob("KT"),
@@ -106,7 +106,6 @@ class InitialDataMob extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 20),
-        
         MyDataTable(
             lotDescription: "",
             group: "",
@@ -117,6 +116,7 @@ class InitialDataMob extends StatelessWidget {
             value: "",
             sRate: "",
             sValue: ""),
+        const SizedBox(height: 30)
       ],
     );
   }

@@ -117,7 +117,7 @@ class InitialDataWeb extends StatelessWidget {
             value: "",
             sRate: "",
             sValue: ""),
-     
+        const SizedBox(height: 90)
       ],
     );
   }

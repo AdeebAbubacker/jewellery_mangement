@@ -89,46 +89,53 @@ class WebScreen extends StatelessWidget {
                   if (state is Loading) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (state is Loaded) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    return Stack(
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(right: 50),
-                          child: Container(
-                            width: width960,
-                            decoration: BoxDecoration(
-                                color: const Color(0xFF1D1D1D),
-                                borderRadius: BorderRadius.circular(15)),
-                            child: ListView.builder(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 30),
-                              shrinkWrap: true,
-                              physics:
-                                  const NeverScrollableScrollPhysics(), // Disable scrolling for ListView
-                              itemCount: state.barcodes.length,
-                              itemBuilder: (context, index) {
-                                final barcode =
-                                    state.barcodes[index].barcode.toString();
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: InkWell(
-                                    onTap: () {
-                                      BlocProvider.of<BarcodeBloc>(context).add(
-                                          BarcodeEvent.fetchBarcodeDetails(
-                                              barcode));
-                                    },
-                                    child: ListTile(
-                                      title: Text(
-                                        barcode,
-                                        style: const TextStyle(
-                                            color: Colors.white),
+                        const InitialDataWeb(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(right: 50),
+                              child: Container(
+                                width: width960,
+                                decoration: BoxDecoration(
+                                    color: const Color(0xFF1D1D1D),
+                                    borderRadius: BorderRadius.circular(15)),
+                                child: ListView.builder(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 30),
+                                  shrinkWrap: true,
+                                  physics:
+                                      const NeverScrollableScrollPhysics(), // Disable scrolling for ListView
+                                  itemCount: state.barcodes.length,
+                                  itemBuilder: (context, index) {
+                                    final barcode = state
+                                        .barcodes[index].barcode
+                                        .toString();
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: InkWell(
+                                        onTap: () {
+                                          BlocProvider.of<BarcodeBloc>(context)
+                                              .add(BarcodeEvent
+                                                  .fetchBarcodeDetails(
+                                                      barcode));
+                                        },
+                                        child: ListTile(
+                                          title: Text(
+                                            barcode,
+                                            style: const TextStyle(
+                                                color: Colors.white),
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                );
-                              },
+                                    );
+                                  },
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                       ],
                     );
@@ -136,7 +143,7 @@ class WebScreen extends StatelessWidget {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 30,
                         ),
                         Row(
@@ -258,7 +265,6 @@ class WebScreen extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 20),
-                      
                         MyDataTable(
                           lotDescription:
                               "${state.details.tableData?.map((e) => e.lotDescription).join(', ')}",

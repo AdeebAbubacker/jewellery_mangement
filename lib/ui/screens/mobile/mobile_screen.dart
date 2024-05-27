@@ -24,9 +24,8 @@ class MobileScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 80),
-             
               const SizedBox(height: 6),
-               Padding(
+              Padding(
                 padding: EdgeInsets.only(left: outerPadding(context)),
                 child: Container(
                   width: 180,
@@ -107,38 +106,44 @@ class MobileScreen extends StatelessWidget {
                   if (state is Loading) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (state is Loaded) {
-                    return Center(
-                      child: Container(
-                        width: 962,
-                        decoration: BoxDecoration(
-                            color: const Color(0xFF1D1D1D),
-                            borderRadius: BorderRadius.circular(15)),
-                        child: ListView.builder(
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: state.barcodes.length,
-                          itemBuilder: (context, index) {
-                            final barcode =
-                                state.barcodes[index].barcode.toString();
-                            return Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: InkWell(
-                                onTap: () {
-                                  BlocProvider.of<BarcodeBloc>(context).add(
-                                      BarcodeEvent.fetchBarcodeDetails(
-                                          barcode));
-                                },
-                                child: ListTile(
-                                  title: Text(
-                                    barcode,
-                                    style: const TextStyle(color: Colors.white),
+                    return Stack(
+                      children: [
+                        InitialDataMob(),
+                        Center(
+                          child: Container(
+                            width: 962,
+                            decoration: BoxDecoration(
+                                color: const Color(0xFF1D1D1D),
+                                borderRadius: BorderRadius.circular(15)),
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemCount: state.barcodes.length,
+                              itemBuilder: (context, index) {
+                                final barcode =
+                                    state.barcodes[index].barcode.toString();
+                                return Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: InkWell(
+                                    onTap: () {
+                                      BlocProvider.of<BarcodeBloc>(context).add(
+                                          BarcodeEvent.fetchBarcodeDetails(
+                                              barcode));
+                                    },
+                                    child: ListTile(
+                                      title: Text(
+                                        barcode,
+                                        style: const TextStyle(
+                                            color: Colors.white),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            );
-                          },
+                                );
+                              },
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     );
                   } else if (state is DetailsLoaded) {
                     return Column(
@@ -175,24 +180,6 @@ class MobileScreen extends StatelessWidget {
                                       "Collection ${state.details.collection}"),
                                   ContentPillsMob(
                                       "Description ${state.details.description}"),
-                                  ContentPillsMob(
-                                      "Metal Grp ${state.details.metalGrp}"),
-                                  ContentPillsMob(
-                                      "STK Section ${state.details.stkSection}"),
-                                  ContentPillsMob(
-                                      "Mfgd By ${state.details.mfgdBy}"),
-                                  ContentPillsMob(
-                                      "Notes ${state.details.notes}"),
-                                  ContentPillsMob(
-                                      "In STK Since ${state.details.inStkSince}"),
-                                  ContentPillsMob(
-                                      "Cert No. ${state.details.certNo}"),
-                                  ContentPillsMob(
-                                      "HUID No. ${state.details.huidNo}"),
-                                  ContentPillsMob(
-                                      "Order No. ${state.details.orderNo}"),
-                                  ContentPillsMob(
-                                      "Cus Name ${state.details.cusName}"),
                                 ],
                               ),
                             ),
@@ -238,6 +225,20 @@ class MobileScreen extends StatelessWidget {
                           direction: Axis.horizontal,
                           alignment: WrapAlignment.start,
                           children: [
+                            ContentPillsMob(
+                                "Metal Grp ${state.details.metalGrp}"),
+                            ContentPillsMob(
+                                "STK Section ${state.details.stkSection}"),
+                            ContentPillsMob("Mfgd By ${state.details.mfgdBy}"),
+                            ContentPillsMob("Notes ${state.details.notes}"),
+                            ContentPillsMob(
+                                "In STK Since ${state.details.inStkSince}"),
+                            ContentPillsMob("Cert No. ${state.details.certNo}"),
+                            ContentPillsMob("HUID No. ${state.details.huidNo}"),
+                            ContentPillsMob(
+                                "Order No. ${state.details.orderNo}"),
+                            ContentPillsMob(
+                                "Cus Name ${state.details.cusName}"),
                             ContentPillsMob("Size ${state.details.size}"),
                             ContentPillsMob("Quality ${state.details.quality}"),
                             ContentPillsMob("KT ${state.details.kt}"),
@@ -264,7 +265,7 @@ class MobileScreen extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 20),
-                         MyDataTable(
+                        MyDataTable(
                           lotDescription:
                               "${state.details.tableData?.map((e) => e.lotDescription).join(', ')}",
                           group:
@@ -284,8 +285,6 @@ class MobileScreen extends StatelessWidget {
                           sValue:
                               "${state.details.tableData?.map((e) => e.sValue).join(', ')}",
                         ),
-
-                  
                         const SizedBox(height: 30)
                       ],
                     );

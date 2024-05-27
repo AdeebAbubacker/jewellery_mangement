@@ -40,9 +40,6 @@ class InitialDataTab extends StatelessWidget {
                   ContentPillsTab("Notes"),
                   ContentPillsTab("In STK Since"),
                   ContentPillsTab("Cert No."),
-                  ContentPillsTab("HUID No."),
-                  ContentPillsTab("Order No."),
-                  ContentPillsTab("Cus Name"),
                 ],
               ),
             ),
@@ -83,6 +80,9 @@ class InitialDataTab extends StatelessWidget {
           direction: Axis.horizontal,
           alignment: WrapAlignment.start,
           children: [
+            ContentPillsTab("HUID No."),
+            ContentPillsTab("Order No."),
+            ContentPillsTab("Cus Name"),
             ContentPillsTab("Size"),
             ContentPillsTab("Quality"),
             ContentPillsTab("KT"),
@@ -104,7 +104,6 @@ class InitialDataTab extends StatelessWidget {
           ],
         ),
         const SizedBox(height: 20),
-       
         MyDataTable(
             lotDescription: "",
             group: "",
@@ -115,6 +114,7 @@ class InitialDataTab extends StatelessWidget {
             value: "",
             sRate: "",
             sValue: ""),
+        const SizedBox(height: 90)
       ],
     );
   }

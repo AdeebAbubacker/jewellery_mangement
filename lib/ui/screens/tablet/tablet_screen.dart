@@ -91,44 +91,51 @@ class TabletScreen extends StatelessWidget {
                   if (state is Loading) {
                     return const Center(child: CircularProgressIndicator());
                   } else if (state is Loaded) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    return Stack(
                       children: [
-                        Padding(
-                          padding: EdgeInsets.only(
-                              right: outerPadding(context) + 20),
-                          child: Container(
-                            width: width960,
-                            decoration: BoxDecoration(
-                                color: const Color(0xFF1D1D1D),
-                                borderRadius: BorderRadius.circular(15)),
-                            child: ListView.builder(
-                              shrinkWrap: true,
-                              physics: const NeverScrollableScrollPhysics(),
-                              itemCount: state.barcodes.length,
-                              itemBuilder: (context, index) {
-                                final barcode =
-                                    state.barcodes[index].barcode.toString();
-                                return Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: InkWell(
-                                    onTap: () {
-                                      BlocProvider.of<BarcodeBloc>(context).add(
-                                          BarcodeEvent.fetchBarcodeDetails(
-                                              barcode));
-                                    },
-                                    child: ListTile(
-                                      title: Text(
-                                        barcode,
-                                        style: const TextStyle(
-                                            color: Colors.white),
+                        const InitialDataTab(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  right: outerPadding(context) + 20),
+                              child: Container(
+                                width: width960,
+                                decoration: BoxDecoration(
+                                    color: const Color(0xFF1D1D1D),
+                                    borderRadius: BorderRadius.circular(15)),
+                                child: ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: state.barcodes.length,
+                                  itemBuilder: (context, index) {
+                                    final barcode = state
+                                        .barcodes[index].barcode
+                                        .toString();
+                                    return Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: InkWell(
+                                        onTap: () {
+                                          BlocProvider.of<BarcodeBloc>(context)
+                                              .add(BarcodeEvent
+                                                  .fetchBarcodeDetails(
+                                                      barcode));
+                                        },
+                                        child: ListTile(
+                                          title: Text(
+                                            barcode,
+                                            style: const TextStyle(
+                                                color: Colors.white),
+                                          ),
+                                        ),
                                       ),
-                                    ),
-                                  ),
-                                );
-                              },
+                                    );
+                                  },
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                       ],
                     );
@@ -179,13 +186,7 @@ class TabletScreen extends StatelessWidget {
                                       "In STK Since ${state.details.inStkSince}"),
                                   ContentPillsTab(
                                       "Cert No. ${state.details.certNo}"),
-                                  ContentPillsTab(
-                                      "HUID No. ${state.details.huidNo}"),
-                                  ContentPillsTab(
-                                      "Order No. ${state.details.orderNo}"),
-                                  ContentPillsTab(
-                                      "Cus Name ${state.details.cusName}"),
-                                ],
+                              ],
                               ),
                             ),
                             const SizedBox(width: 10),
@@ -230,6 +231,13 @@ class TabletScreen extends StatelessWidget {
                           direction: Axis.horizontal,
                           alignment: WrapAlignment.start,
                           children: [
+                                    ContentPillsTab(
+                                      "HUID No. ${state.details.huidNo}"),
+                                  ContentPillsTab(
+                                      "Order No. ${state.details.orderNo}"),
+                                  ContentPillsTab(
+                                      "Cus Name ${state.details.cusName}"),
+                            
                             ContentPillsTab("Size ${state.details.size}"),
                             ContentPillsTab("Quality ${state.details.quality}"),
                             ContentPillsTab("KT ${state.details.kt}"),
@@ -256,7 +264,7 @@ class TabletScreen extends StatelessWidget {
                           ],
                         ),
                         const SizedBox(height: 20),
-                         MyDataTable(
+                        MyDataTable(
                           lotDescription:
                               "${state.details.tableData?.map((e) => e.lotDescription).join(', ')}",
                           group:
@@ -276,7 +284,6 @@ class TabletScreen extends StatelessWidget {
                           sValue:
                               "${state.details.tableData?.map((e) => e.sValue).join(', ')}",
                         ),
-                       
                         const SizedBox(height: 90)
                       ],
                     );
